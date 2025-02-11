@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { CategoryComponent } from './category/category.component';
 
 @Component({
   selector: 'app-coupons-filters',
-  imports: [],
+  imports: [CategoryComponent],
   templateUrl: './coupons-filters.component.html',
-  styleUrl: './coupons-filters.component.scss'
+  styleUrl: './coupons-filters.component.scss',
 })
-export class CouponsFiltersComponent {
-
-}
+export class CouponsFiltersComponent {}

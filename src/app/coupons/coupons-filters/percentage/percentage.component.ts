@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
   imports: [RadioButton, FormsModule],
   templateUrl: './percentage.component.html',
   styleUrl: './percentage.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PercentageComponent {
   percentageFilters = [

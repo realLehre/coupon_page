@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ICouponRes } from '../models/coupons.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CouponsService {
-  couponsResponse: ICouponRes = {
+  couponsResponse = signal<ICouponRes>({
     result: true,
     status: 'success',
     message: 'data fetched',
@@ -10612,7 +10612,7 @@ export class CouponsService {
       },
     ],
     total_count: 1000,
-  };
+  });
 
   constructor() {}
 }

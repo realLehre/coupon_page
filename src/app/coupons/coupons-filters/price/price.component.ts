@@ -1,4 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+} from '@angular/core';
 import { Slider } from 'primeng/slider';
 import { FormsModule } from '@angular/forms';
 
@@ -7,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [Slider, FormsModule],
   templateUrl: './price.component.html',
   styleUrl: './price.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriceComponent {
   currentPriceFilter = signal({ min: 2000, max: 10000 });

@@ -1,0 +1,17 @@
+<div
+  class="bg-white rounded-t-[20px] h-full w-full relative overflow-hidden"
+  style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.1)"
+>
+  <button
+    class="w-4 min-w-4 h-4 min-h-4 font-semibold text-2xl absolute top-6 right-4"
+    (click)="onCloseMenu()"
+  >
+    X
+  </button>
+
+  <div class="h-12"></div>
+
+  <div class="p-8 overflow-y-auto h-[calc(100%-48px)]">
+    <app-coupons-filters />
+  </div>
+</div>

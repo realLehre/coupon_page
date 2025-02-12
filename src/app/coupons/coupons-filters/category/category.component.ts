@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CategoryService } from './category.service';
 import { KeyValuePipe } from '@angular/common';
 import { RadioButton } from 'primeng/radiobutton';
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
   imports: [KeyValuePipe, RadioButton, FormsModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryComponent {
   private categoryService = inject(CategoryService);

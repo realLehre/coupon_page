@@ -1,12 +1,11 @@
 <div
-  class="mx-auto w-[90%] flex items-start space-x-10 justify-between py-10"
+  class="mx-auto w-[90%] flex items-start py-10 relative"
   style="margin-inline: auto"
 >
-  <div>
+  <div class="max-[800px]:hidden mr-10 max-[800px]:mr-0 z-10">
     <app-coupons-filters />
   </div>
-  <p class="text-red-500 bg-black">dsdsd</p>
-  <div>
+  <div class="flex-1 z-8 relative">
     <app-coupons-view />
   </div>
 </div>

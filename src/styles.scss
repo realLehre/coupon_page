@@ -36,6 +36,7 @@ body {
 
 .custom-slider {
   --p-slider-range-background: theme("colors.main_purple");
+  --p-slider-track-background: theme("colors.main_gray");
   --p-slider-handle-background: theme("colors.main_purple");
   --p-slider-handle-hover-background: theme("colors.main_purple");
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LocationService } from './location.service';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
   imports: [RadioButton, FormsModule],
   templateUrl: './location.component.html',
   styleUrl: './location.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationComponent {
   private locationService = inject(LocationService);

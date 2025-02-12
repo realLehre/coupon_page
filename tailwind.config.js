@@ -7,6 +7,7 @@ module.exports = {
         main_purple: "#9444CB",
         title: "#1B1C1E",
         subtitle: "#757575",
+        sec_gray: "#616161",
       },
     },
   },

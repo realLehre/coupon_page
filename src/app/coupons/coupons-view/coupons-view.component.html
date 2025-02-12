@@ -59,11 +59,18 @@
   </div>
 
   <div
-    class="mt-5 grid grid-cols-1 gap-5 p-4 min-[500px]:grid-cols-2 min-[1050px]:grid-cols-4"
+    class="mt-8 grid grid-cols-1 gap-5 min-[500px]:grid-cols-2 min-[1050px]:grid-cols-4"
   >
-    @for (coupon of coupons().data; track coupon.id) {
+    @for (
+      coupon of coupons()?.coupons! | paginate: config()!;
+      track coupon.id
+    ) {
       <app-coupon-card [coupon]="coupon" />
     }
+  </div>
+
+  <div class="mt-8">
+    <app-coupons-data-pages [config]="config()!" />
   </div>
 
   <app-mobile-coupon-filters

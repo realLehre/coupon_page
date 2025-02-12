@@ -16,7 +16,7 @@ export class LocationComponent {
   selectedLocation!: string;
 
   ngOnInit() {
-    console.log(this.locations());
+    // console.log(this.locations());
   }
 
   onSelectLocation(event: string) {

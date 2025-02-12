@@ -1,8 +1,4 @@
 export interface ICouponRes {
-  result: boolean;
-  message: string;
-  status: string;
-  total_count: number;
   data: ICoupon[];
 }
 export interface ICoupon {
@@ -58,4 +54,23 @@ export interface ICouponCategory {
   deleted_at: string | null;
   created_at: string | null;
   updated_at: string | null;
+}
+
+export interface ICouponFilteredRes {
+  coupons: ICoupon[];
+  totalItems: number;
+  totalItemsInPage: number;
+  currentPage: number;
+  totalPages: number;
+}
+
+export interface ICouponsFilter {
+  search?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  page: number;
+  category?: ICouponCategory | undefined;
+  percentage?: number;
+  location?: string;
+  sort?: string;
 }

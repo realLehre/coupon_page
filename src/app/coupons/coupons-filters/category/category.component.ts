@@ -17,7 +17,7 @@ export class CategoryComponent {
   selectedCategory = null;
 
   ngOnInit() {
-    console.log(this.categories());
+    // console.log(this.categories());
   }
 
   onSelectCategory(category: any) {

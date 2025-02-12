@@ -1,0 +1,81 @@
+<div class="flex items-center justify-between gap-3 flex-wrap">
+  <p class="text-sec_gray text-sm font-medium">1 - 16 of 15 pages</p>
+
+  <pagination-template
+    #p="paginationApi"
+    [id]="config()?.id!"
+    (pageChange)="pageChanged($event)"
+  >
+    <div class="custom-pagination flex items-center space-x-8">
+      <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+        @if (!p.isFirstPage()) {
+          <a (click)="p.previous()" class="cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="16"
+              viewBox="0 0 10 16"
+              fill="none"
+            >
+              <path
+                d="M1.25 8L8.75 15.5"
+                stroke="#616161"
+                stroke-linecap="round"
+              />
+              <path
+                d="M1.25 8L8.75 0.5"
+                stroke="#616161"
+                stroke-linecap="round"
+              />
+            </svg>
+          </a>
+        }
+      </div>
+
+      @for (page of p.pages; track $index) {
+        <div [class.current]="p.getCurrent() === page.value">
+          @if (p.getCurrent() !== page.value) {
+            <a (click)="p.setCurrent(page.value)" class="cursor-pointer">
+              <span class="text-subtitle font-semibold">{{ page.label }}</span>
+            </a>
+          }
+
+          @if (p.getCurrent() === page.value) {
+            <div class="cursor-pointer">
+              <span
+                class="text-title border-b-[2px] font-bold border-main_purple pb-[6px] px-2"
+                >{{ page.label }}</span
+              >
+            </div>
+          }
+        </div>
+      }
+
+      <div class="pagination-next" [class.disabled]="p.isLastPage()">
+        @if (!p.isLastPage()) {
+          <a (click)="p.next()" class="cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="16"
+              viewBox="0 0 10 16"
+              fill="none"
+              class="rotate-180"
+            >
+              <path
+                d="M1.25 8L8.75 15.5"
+                stroke="#616161"
+                stroke-linecap="round"
+              />
+              <path
+                d="M1.25 8L8.75 0.5"
+                stroke="#616161"
+                stroke-linecap="round"
+              />
+            </svg>
+          </a>
+        }
+      </div>
+    </div>
+  </pagination-template>
+</div>

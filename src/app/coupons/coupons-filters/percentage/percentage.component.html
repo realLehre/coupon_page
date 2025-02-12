@@ -1,1 +1,26 @@
-<p>percentage works!</p>
+<div class="w-full">
+  <h3 class="mb-2 font-medium text-subtitle">Percentage</h3>
+
+  <div class="space-y-1 pl-2 max-h-[320px] overflow-y-auto">
+    @for (percentage of percentageFilters; track percentage.id) {
+      <div class="flex items-center">
+        <p-radioButton
+          name="percentage"
+          [value]="percentage.value"
+          [ngModel]="selectedPercentage"
+          (ngModelChange)="onSelectPercentage($event)"
+          [inputId]="percentage.label"
+          styleClass="filter-input"
+          inputId="size_small"
+          size="small"
+        />
+        <label
+          [for]="percentage.label"
+          class="ml-2 pt-[6px] font-semibold text-title break-all"
+        >
+          {{ percentage.label }}
+        </label>
+      </div>
+    }
+  </div>
+</div>

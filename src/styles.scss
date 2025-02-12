@@ -10,11 +10,8 @@
 
 html,
 body {
-  background-color: #ededed;
+  background-color: #fafafa;
   color: #000;
-}
-
-.p-radiobutton-input {
 }
 
 .filter-input {
@@ -24,4 +21,50 @@ body {
     background-color: transparent !important;
     border: 1px solid gray !important;
   }
+
+  &.p-radiobutton-checked {
+    & .p-radiobutton-box {
+      border: 1px solid theme("colors.main_purple") !important;
+      box-shadow: none !important;
+    }
+
+    & .p-radiobutton-icon {
+      background: theme("colors.main_purple") !important;
+    }
+  }
+}
+
+.custom-slider {
+  --p-slider-range-background: theme("colors.main_purple");
+  --p-slider-handle-background: theme("colors.main_purple");
+  --p-slider-handle-hover-background: theme("colors.main_purple");
+}
+
+.p-slider-handle {
+  background: theme("colors.main_purple") !important;
+
+  &::before {
+    background: theme("colors.main_purple") !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b9b9b9;
+  border-radius: 5px;
+
+  &:horizontal {
+    background: #d9d9d9 !important;
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.main_gray");
 }

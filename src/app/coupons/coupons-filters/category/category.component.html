@@ -2,23 +2,23 @@
   <h3 class="mb-2 font-medium text-subtitle">Category</h3>
 
   <div class="space-y-1 pl-2 max-h-[320px] overflow-y-auto">
-    @for (cat of categories() | keyvalue; track cat.key) {
+    @for (cat of categories(); track cat.id) {
       <div class="flex items-center">
         <p-radioButton
           name="category"
-          [value]="cat.value"
-          [ngModel]="selectedCategory"
+          [value]="cat"
+          [ngModel]="selectedCategory()"
           (ngModelChange)="onSelectCategory($event)"
-          [inputId]="cat.key"
+          [inputId]="cat.category_name"
           styleClass="filter-input"
           inputId="size_small"
           size="small"
         />
         <label
-          [for]="cat.key"
+          [for]="cat.category_name"
           class="ml-2 pt-[6px] font-semibold text-title break-all"
         >
-          {{ cat.key }}
+          {{ cat.category_name }}
         </label>
       </div>
     }

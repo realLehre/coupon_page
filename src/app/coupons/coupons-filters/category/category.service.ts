@@ -8,12 +8,17 @@ import { ICoupon, ICouponCategory } from '../../../models/coupons.interface';
 export class CategoryService {
   private couponService = inject(CouponsService);
   data = signal<ICoupon[]>(this.couponService.couponsResponse().data);
-  categories = computed<{ [key: string]: ICouponCategory }>(() =>
+  categories = computed<ICouponCategory[]>(() =>
     this.data().reduce((acc: any, item) => {
-      if (!acc[item.category.category_name]) {
-        acc[item.category.category_name] = item.category;
+      if (
+        !acc.find(
+          (cat: ICouponCategory) =>
+            cat.category_name == item.category.category_name,
+        )
+      ) {
+        acc.push(item.category);
       }
       return acc;
-    }, {}),
+    }, []),
   );
 }

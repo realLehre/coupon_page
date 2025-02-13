@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   inject,
-  signal,
   WritableSignal,
 } from '@angular/core';
 import { Slider } from 'primeng/slider';

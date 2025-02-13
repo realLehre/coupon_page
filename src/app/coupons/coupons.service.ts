@@ -1,14 +1,12 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import {
-  ICoupon,
-  ICouponCategory,
   ICouponFilteredRes,
   ICouponRes,
   ICouponsFilter,
 } from '../models/coupons.interface';
 import { PaginationInstance } from 'ngx-pagination';
 import { data } from './couponsData';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FilterService } from '../core/filter.service';
 
@@ -20,18 +18,15 @@ export class CouponsService {
   couponsResponse = signal<ICouponRes>({
     data: data,
   });
-  filteredCoupons = signal<ICoupon[]>([]);
   filter = this.filterService.filter;
   getCoupons = computed<any>(() => {
     return this.filterCoupons(this.filter());
   });
   paginationConfig = signal<PaginationInstance | null>(null);
 
-  fetchCoupons() {
+  fetchCoupons(): Observable<ICouponFilteredRes> {
     return toObservable(this.getCoupons).pipe(
       tap((res) => {
-        this.filteredCoupons.set(res.coupons);
-
         this.paginationConfig.set({
           currentPage: res.currentPage,
           itemsPerPage: Math.max(res.totalItemsInPage, 16),
@@ -44,7 +39,6 @@ export class CouponsService {
 
   filterCoupons(filters: ICouponsFilter): ICouponFilteredRes {
     let filteredCoupons = this.couponsResponse().data;
-    console.log(filters);
     // Percentage Discount Filter
     if (filters.percentage) {
       if (
@@ -114,7 +108,6 @@ export class CouponsService {
       );
     }
 
-    // Pagination
     const page = filters.page ?? 1;
     const pageSize = 16;
     const totalItems = filteredCoupons.length;

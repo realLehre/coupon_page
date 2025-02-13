@@ -3,7 +3,6 @@ import {
   Component,
   inject,
   OnInit,
-  signal,
 } from '@angular/core';
 import { LayoutService } from '../../core/layout.service';
 import { NgClass } from '@angular/common';
@@ -11,11 +10,12 @@ import { MobileCouponFiltersComponent } from '../mobile-coupon-filters/mobile-co
 import { CouponCardComponent } from '../coupon-card/coupon-card.component';
 import { CouponsService } from '../coupons.service';
 import { CouponsDataPagesComponent } from '../coupons-data-pages/coupons-data-pages.component';
-import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { FilterService } from '../../core/filter.service';
+import { ICouponFilteredRes } from '../../models/coupons.interface';
 
 @Component({
   selector: 'app-coupons-view',
@@ -36,7 +36,7 @@ export class CouponsViewComponent implements OnInit {
   private layoutService = inject(LayoutService);
   private couponService = inject(CouponsService);
   private filterService = inject(FilterService);
-  coupons = toSignal(this.couponService.fetchCoupons());
+  coupons = toSignal<ICouponFilteredRes>(this.couponService.fetchCoupons());
   numberOfFilters = this.filterService.numberOfFilters;
   isMobileFilterOpened = this.layoutService.mobileFilterOpened;
   config = this.couponService.paginationConfig;
@@ -62,8 +62,6 @@ export class CouponsViewComponent implements OnInit {
       !this.layoutService.mobileFilterOpened(),
     );
   }
-
-  onCloseMenu() {}
 
   onSortChanged(event: any) {
     this.filterService.currentSort.set(event);

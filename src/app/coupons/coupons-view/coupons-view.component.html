@@ -84,17 +84,17 @@
         </div>
       }
     } @empty {
-      <p class="text-center font-semibold text-tile">
+      <p class="text-center font-semibold text-tile" data-test-id="no-coupons">
         No coupons are available
       </p>
     }
   </div>
 
-  @if (coupons()?.coupons.length) {
+  @if (coupons()?.coupons?.length) {
     <div class="mt-8">
       <app-coupons-data-pages
         [config]="config()!"
-        [totalPages]="coupons().totalPages"
+        [totalPages]="coupons()?.totalPages"
       />
     </div>
   }

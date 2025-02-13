@@ -7,9 +7,9 @@ import { ICoupon, ICouponCategory } from '../../../models/coupons.interface';
 })
 export class CategoryService {
   private couponService = inject(CouponsService);
-  data = signal<ICoupon[]>(this.couponService.couponsResponse().data);
+  data = this.couponService.couponsResponse;
   categories = computed<ICouponCategory[]>(() =>
-    this.data().reduce((acc: any, item) => {
+    this.data().data.reduce((acc: any, item) => {
       if (
         !acc.find(
           (cat: ICouponCategory) =>

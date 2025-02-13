@@ -7,7 +7,7 @@
         <p-radioButton
           name="category"
           [value]="cat"
-          [ngModel]="selectedCategory()"
+          [ngModel]="selectedCategory()?.id === cat.id ? cat : null"
           (ngModelChange)="onSelectCategory($event)"
           [inputId]="cat.category_name"
           styleClass="filter-input"

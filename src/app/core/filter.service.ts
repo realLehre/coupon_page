@@ -9,22 +9,23 @@ export class FilterService {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   currentSearch = signal<string>('');
-  currentPercentage = signal<{ min: number; max: number }>({ min: 0, max: 0 });
+  currentPercentage = signal<any>(null);
   currentLocation = signal<string>('');
   currentCategory = signal<ICouponCategory | null>(null);
   currentPage = signal<number>(1);
   currentPriceFilter = signal<{ min: number; max: number } | null>(null);
   currentSort = signal<string>('newest');
-  currentRating = signal<number | null>(null);
   numberOfFilters = computed(() => {
-    const priceFilter = this.currentPriceFilter();
-    const sortFilter = this.currentSort();
-    const ratingFilter = this.currentRating();
+    const price = this.currentPriceFilter();
+    const location = this.currentLocation();
+    const category = this.currentCategory();
+    const percentage = this.currentPercentage();
     return (
       Object.keys({
-        ...(priceFilter && { priceFilter }),
-        ...(sortFilter && { sortFilter }),
-        ...(ratingFilter && { ratingFilter }),
+        ...(price && { price }),
+        ...(location && { location }),
+        ...(category && { category }),
+        ...(percentage && { percentage }),
       }).length ?? 0
     );
   });
@@ -36,7 +37,7 @@ export class FilterService {
     sort: this.currentSort(),
     search: this.currentSearch(),
     location: this.currentLocation(),
-    percentage: this.currentPercentage(),
+    percentage: this.currentPercentage()!,
   }));
   STORAGE_KEY = 'DKdk*djdHDk3wksddld';
 
@@ -84,6 +85,13 @@ export class FilterService {
     });
 
     sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.filter()));
+
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    });
   }
 
   createRouteQuery() {
@@ -95,20 +103,22 @@ export class FilterService {
       sortBy: this.filter().sort,
       location: this.filter()?.location !== '' ? this.filter()?.location : null,
       percentage:
-        this.filter()?.percentage?.min === 0 &&
-        this.filter()?.percentage?.max === 0
+        this.filter()?.percentage?.value.min === 0 &&
+        this.filter()?.percentage?.value.max === 0
           ? null
-          : JSON.stringify(this.filter()?.percentage),
+          : JSON.stringify(this.filter()?.percentage?.value),
       search: this.filter()?.search !== '' ? this.filter().search : null,
     };
   }
 
   clearFilter() {
     this.currentSort.set('newest');
-    this.currentRating.set(null);
     this.currentPriceFilter.set(null);
-    this.currentPercentage.set({ min: 0, max: 0 });
+    this.currentPercentage.set(null);
     this.currentPage.set(1);
+    this.currentSearch.set('');
+    this.currentCategory.set(null);
+    this.currentLocation.set('');
     this.setDataAndRoute();
   }
 }

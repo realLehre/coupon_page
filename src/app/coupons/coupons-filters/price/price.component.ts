@@ -40,14 +40,14 @@ export class PriceComponent {
   onMinInputChange(event: any) {
     this.currentPriceFilter.set({
       min: event,
-      max: this.currentPriceFilter()?.max!,
+      max: this.currentPriceFilter()?.max! ?? this.rangeValues()[1],
     });
     this.setFilter();
   }
 
   onMaxInputChange(event: any) {
     this.currentPriceFilter.set({
-      min: this.currentPriceFilter()?.min!,
+      min: this.currentPriceFilter()?.min! ?? this.rangeValues()[0],
       max: event,
     });
     this.setFilter();

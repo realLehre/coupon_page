@@ -2,12 +2,14 @@
   <h3 class="mb-2 font-medium text-subtitle">Percentage</h3>
 
   <div class="space-y-1 pl-2 max-h-[320px] overflow-y-auto">
-    @for (percentage of percentageFilters; track percentage.id) {
+    @for (percentage of percentageFilters(); track percentage.id) {
       <div class="flex items-center">
         <p-radioButton
           name="percentage"
-          [value]="percentage.value"
-          [ngModel]="selectedPercentage()"
+          [value]="percentage"
+          [ngModel]="
+            selectedPercentage()?.id === percentage.id ? percentage : null
+          "
           (ngModelChange)="onSelectPercentage($event)"
           [inputId]="percentage.label"
           styleClass="filter-input"

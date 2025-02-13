@@ -45,14 +45,16 @@
         </svg>
 
         <span
-          class="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center bg-primary text-white p-2 text-[10px] font-medium rounded-full"
+          class="absolute -top-2 -right-2 h-4 w-4 flex items-center justify-center bg-main_purple text-white p-2 text-[10px] font-medium rounded-full"
           >{{ numberOfFilters() }}</span
         >
       </button>
       <div class="flex items-center">
-        <p class="text-lg text-title font-medium whitespace-nowrap">Sort By:</p>
+        <p class="text-sm md:text-lg text-title font-medium whitespace-nowrap">
+          Sort By:
+        </p>
         <select
-          class="bg-transparent outline-none text-lg text-subtitle"
+          class="bg-transparent outline-none text-sm md:text-lg text-subtitle"
           [ngModel]="selectedSort()"
           (ngModelChange)="onSortChanged($event)"
         >
@@ -68,9 +70,19 @@
   >
     @for (
       coupon of coupons()?.coupons! | paginate: config()!;
-      track coupon.id
+      track coupon.id;
+      let i = $index
     ) {
       <app-coupon-card [coupon]="coupon" />
+      @if ((i + 1) % 12 === 0) {
+        <div class="col-span-full h-[90px]">
+          <img
+            src="assets/image-39.png"
+            alt=""
+            class="object-cover h-full w-full"
+          />
+        </div>
+      }
     } @empty {
       <p class="text-center font-semibold text-tile">
         No coupons are available
@@ -80,7 +92,10 @@
 
   @if (coupons()?.coupons.length) {
     <div class="mt-8">
-      <app-coupons-data-pages [config]="config()!" />
+      <app-coupons-data-pages
+        [config]="config()!"
+        [totalPages]="coupons().totalPages"
+      />
     </div>
   }
   <app-mobile-coupon-filters

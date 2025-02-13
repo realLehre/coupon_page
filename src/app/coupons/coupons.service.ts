@@ -20,6 +20,7 @@ export class CouponsService {
   couponsResponse = signal<ICouponRes>({
     data: data,
   });
+  filteredCoupons = signal<ICoupon[]>([]);
   filter = this.filterService.filter;
   getCoupons = computed<any>(() => {
     return this.filterCoupons(this.filter());
@@ -29,7 +30,8 @@ export class CouponsService {
   fetchCoupons() {
     return toObservable(this.getCoupons).pipe(
       tap((res) => {
-        console.log(res);
+        this.filteredCoupons.set(res.coupons);
+
         this.paginationConfig.set({
           currentPage: res.currentPage,
           itemsPerPage: Math.max(res.totalItemsInPage, 16),
@@ -42,17 +44,22 @@ export class CouponsService {
 
   filterCoupons(filters: ICouponsFilter): ICouponFilteredRes {
     let filteredCoupons = this.couponsResponse().data;
-
+    console.log(filters);
     // Percentage Discount Filter
-    if (filters.percentage !== undefined) {
-      if (filters.percentage?.min == 0 && filters.percentage?.max == 0) {
+    if (filters.percentage) {
+      if (
+        filters.percentage?.value.min == 0 &&
+        filters.percentage?.value.max == 0
+      ) {
         filteredCoupons = this.couponsResponse().data;
       } else {
         filteredCoupons = filteredCoupons.filter(
-          (coupon) => coupon?.coupon_discount! >= +filters?.percentage?.min!,
+          (coupon) =>
+            coupon?.coupon_discount! >= +filters?.percentage?.value.min!,
         );
         filteredCoupons = filteredCoupons.filter(
-          (coupon) => coupon?.coupon_discount! <= +filters?.percentage?.max!,
+          (coupon) =>
+            coupon?.coupon_discount! <= +filters?.percentage?.value.max!,
         );
       }
     }

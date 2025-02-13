@@ -70,7 +70,7 @@ export interface ICouponsFilter {
   maxPrice?: number;
   page: number;
   category?: ICouponCategory | undefined;
-  percentage?: { min: number; max: number };
+  percentage?: any;
   location?: string;
   sort?: string;
 }

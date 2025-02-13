@@ -7,4 +7,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./coupons/coupons.component').then((m) => m.CouponsComponent),
   },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./page-not-found/page-not-found.component').then(
+        (m) => m.PageNotFoundComponent,
+      ),
+  },
 ];

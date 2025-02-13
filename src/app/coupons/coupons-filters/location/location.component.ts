@@ -18,7 +18,9 @@ export class LocationComponent {
   selectedLocation = this.filterService.currentLocation;
 
   onSelectLocation(event: string) {
-    this.filterService.currentLocation.set(event);
+    this.filterService.currentLocation.set(
+      this.filterService.currentLocation() === event ? '' : event,
+    );
     this.filterService.currentPage.set(1);
     this.filterService.setDataAndRoute();
   }

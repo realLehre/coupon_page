@@ -7,7 +7,7 @@
         <p-radioButton
           name="percentage"
           [value]="percentage.value"
-          [ngModel]="selectedPercentage"
+          [ngModel]="selectedPercentage()"
           (ngModelChange)="onSelectPercentage($event)"
           [inputId]="percentage.label"
           styleClass="filter-input"

@@ -72,12 +72,19 @@ export class CouponsService {
         (coupon) => coupon.category.id === filters.category?.id,
       );
     }
-
+    console.log(filters);
     // Percentage Discount Filter
     if (filters.percentage !== undefined) {
-      filteredCoupons = filteredCoupons.filter(
-        (coupon) => coupon?.coupon_discount! >= filters?.percentage!,
-      );
+      if (filters.percentage?.min == 0 && filters.percentage?.max == 0) {
+        filteredCoupons = this.couponsResponse().data;
+      } else {
+        filteredCoupons = filteredCoupons.filter(
+          (coupon) => coupon?.coupon_discount! >= +filters?.percentage?.min!,
+        );
+        filteredCoupons = filteredCoupons.filter(
+          (coupon) => coupon?.coupon_discount! <= +filters?.percentage?.max!,
+        );
+      }
     }
 
     // Location Filter (Full match)

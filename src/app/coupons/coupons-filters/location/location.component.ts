@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LocationService } from './location.service';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
+import { FilterService } from '../../../core/filter.service';
 
 @Component({
   selector: 'app-location',
@@ -12,14 +13,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class LocationComponent {
   private locationService = inject(LocationService);
+  private filterService = inject(FilterService);
   locations = this.locationService.locations;
-  selectedLocation!: string;
+  selectedLocation = this.filterService.currentLocation;
 
   ngOnInit() {
     // console.log(this.locations());
   }
 
   onSelectLocation(event: string) {
-    this.selectedLocation = event;
+    this.filterService.currentLocation.set(event);
+    this.filterService.currentPage.set(1);
+    this.filterService.setDataAndRoute();
   }
 }

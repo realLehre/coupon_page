@@ -18,7 +18,6 @@ export class CategoryComponent {
   selectedCategory = this.filterService.currentCategory;
 
   onSelectCategory(category: any) {
-    this.selectedCategory.set(category);
     this.filterService.currentCategory.set(category);
     this.filterService.currentPage.set(1);
     this.filterService.setDataAndRoute();

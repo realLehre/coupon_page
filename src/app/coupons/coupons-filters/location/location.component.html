@@ -7,7 +7,7 @@
         <p-radioButton
           name="location"
           [value]="location"
-          [ngModel]="selectedLocation"
+          [ngModel]="selectedLocation()"
           (ngModelChange)="onSelectLocation($event)"
           [inputId]="location"
           styleClass="filter-input"

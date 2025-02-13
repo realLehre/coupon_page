@@ -9,7 +9,7 @@ export class FilterService {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   currentSearch = signal<string>('');
-  currentPercentage = signal<number>(0);
+  currentPercentage = signal<{ min: number; max: number }>({ min: 0, max: 0 });
   currentLocation = signal<string>('');
   currentCategory = signal<ICouponCategory | null>(null);
   currentPage = signal<number>(1);
@@ -64,11 +64,11 @@ export class FilterService {
       this.currentLocation.set(savedQuery?.location);
     }
     if (savedQuery?.search) {
-      this.currentLocation.set(savedQuery?.search);
+      this.currentSearch.set(savedQuery?.search);
     }
 
     if (savedQuery?.percentage) {
-      this.currentLocation.set(savedQuery?.percentage);
+      this.currentPercentage.set(savedQuery?.percentage);
     }
 
     this.createRouteQuery();
@@ -95,7 +95,10 @@ export class FilterService {
       sortBy: this.filter().sort,
       location: this.filter()?.location !== '' ? this.filter()?.location : null,
       percentage:
-        this.filter()?.percentage !== 0 ? this.filter()?.percentage : null,
+        this.filter()?.percentage?.min !== 0 &&
+        this.filter()?.percentage?.max !== 0
+          ? JSON.stringify(this.filter()?.percentage)
+          : null,
       search: this.filter()?.search !== '' ? this.filter().search : null,
     };
   }

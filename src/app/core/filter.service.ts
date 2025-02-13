@@ -95,10 +95,10 @@ export class FilterService {
       sortBy: this.filter().sort,
       location: this.filter()?.location !== '' ? this.filter()?.location : null,
       percentage:
-        this.filter()?.percentage?.min !== 0 &&
-        this.filter()?.percentage?.max !== 0
-          ? JSON.stringify(this.filter()?.percentage)
-          : null,
+        this.filter()?.percentage?.min === 0 &&
+        this.filter()?.percentage?.max === 0
+          ? null
+          : JSON.stringify(this.filter()?.percentage),
       search: this.filter()?.search !== '' ? this.filter().search : null,
     };
   }

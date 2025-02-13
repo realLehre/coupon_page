@@ -42,13 +42,27 @@ export class CouponsService {
 
   filterCoupons(filters: ICouponsFilter): ICouponFilteredRes {
     let filteredCoupons = this.couponsResponse().data;
+    console.log(filters);
+    // Percentage Discount Filter
+    if (filters.percentage !== undefined) {
+      if (filters.percentage?.min == 0 && filters.percentage?.max == 0) {
+        filteredCoupons = this.couponsResponse().data;
+      } else {
+        filteredCoupons = filteredCoupons.filter(
+          (coupon) => coupon?.coupon_discount! >= +filters?.percentage?.min!,
+        );
+        filteredCoupons = filteredCoupons.filter(
+          (coupon) => coupon?.coupon_discount! <= +filters?.percentage?.max!,
+        );
+      }
+    }
 
-    // Search Filter (by store name)
     if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
+      const search = filters.search.trim().toLowerCase();
       filteredCoupons = filteredCoupons.filter((coupon) =>
-        coupon.company_name.toLowerCase().includes(searchLower),
+        coupon.company_name.toLowerCase().includes(search),
       );
+      console.log(filteredCoupons);
     }
 
     // Price Filter
@@ -71,20 +85,6 @@ export class CouponsService {
       filteredCoupons = filteredCoupons.filter(
         (coupon) => coupon.category.id === filters.category?.id,
       );
-    }
-    console.log(filters);
-    // Percentage Discount Filter
-    if (filters.percentage !== undefined) {
-      if (filters.percentage?.min == 0 && filters.percentage?.max == 0) {
-        filteredCoupons = this.couponsResponse().data;
-      } else {
-        filteredCoupons = filteredCoupons.filter(
-          (coupon) => coupon?.coupon_discount! >= +filters?.percentage?.min!,
-        );
-        filteredCoupons = filteredCoupons.filter(
-          (coupon) => coupon?.coupon_discount! <= +filters?.percentage?.max!,
-        );
-      }
     }
 
     // Location Filter (Full match)

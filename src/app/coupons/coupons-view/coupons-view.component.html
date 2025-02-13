@@ -5,6 +5,7 @@
         type="text"
         class="p-2 px-6 pr-12 rounded-full w-full h-full bg-transparent text-[#616161] placeholder:text-[#616161] border border-[#616161]"
         placeholder="Search for store items"
+        [formControl]="inputForm"
       />
 
       <svg
@@ -66,13 +67,18 @@
       track coupon.id
     ) {
       <app-coupon-card [coupon]="coupon" />
+    } @empty {
+      <p class="text-center font-semibold text-tile">
+        No coupons are available
+      </p>
     }
   </div>
 
-  <div class="mt-8">
-    <app-coupons-data-pages [config]="config()!" />
-  </div>
-
+  @if (coupons()?.coupons.length) {
+    <div class="mt-8">
+      <app-coupons-data-pages [config]="config()!" />
+    </div>
+  }
   <app-mobile-coupon-filters
     class="fixed min-[760px]:hidden w-full left-0 bottom-0 h-1/2 translate-y-[100%] z-[110] transition-all ease-in-out"
     [ngClass]="{ '!translate-y-0': isMobileFilterOpened() }"

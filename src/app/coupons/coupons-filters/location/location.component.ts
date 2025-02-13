@@ -17,10 +17,6 @@ export class LocationComponent {
   locations = this.locationService.locations;
   selectedLocation = this.filterService.currentLocation;
 
-  ngOnInit() {
-    // console.log(this.locations());
-  }
-
   onSelectLocation(event: string) {
     this.filterService.currentLocation.set(event);
     this.filterService.currentPage.set(1);

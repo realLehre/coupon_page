@@ -13,6 +13,9 @@ import { CouponsService } from '../coupons.service';
 import { CouponsDataPagesComponent } from '../coupons-data-pages/coupons-data-pages.component';
 import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
+import { FilterService } from '../../core/filter.service';
 
 @Component({
   selector: 'app-coupons-view',
@@ -22,6 +25,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     CouponCardComponent,
     CouponsDataPagesComponent,
     NgxPaginationModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './coupons-view.component.html',
   styleUrl: './coupons-view.component.scss',
@@ -30,13 +34,28 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class CouponsViewComponent implements OnInit {
   private layoutService = inject(LayoutService);
   private couponService = inject(CouponsService);
+  private filterService = inject(FilterService);
   coupons = toSignal(this.couponService.fetchCoupons());
   numberOfFilters = signal(0);
   isMobileFilterOpened = this.layoutService.mobileFilterOpened;
   config = this.couponService.paginationConfig;
+  inputForm: FormControl = new FormControl(null);
 
   ngOnInit() {
-    // console.log(this.couponService.filterCoupons({ page: 13 }));
+    // mimicking searching and sending a network request, do debounce to reduce call frequency
+    this.inputForm.valueChanges
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        map(() => this.inputForm.value.toLowerCase()),
+      )
+      .subscribe((val) => {
+        console.log(val);
+        this.filterService.currentSearch.set(val);
+        this.filterService.currentPage.set(1);
+        this.filterService.setDataAndRoute();
+      });
   }
 
   onOpenMobileFilter() {

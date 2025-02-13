@@ -51,9 +51,13 @@
       </button>
       <div class="flex items-center">
         <p class="text-lg text-title font-medium whitespace-nowrap">Sort By:</p>
-        <select class="bg-transparent outline-none text-lg text-subtitle">
-          <option value="new">Newest to oldest</option>
-          <option value="old">Oldest to newest</option>
+        <select
+          class="bg-transparent outline-none text-lg text-subtitle"
+          [ngModel]="selectedSort()"
+          (ngModelChange)="onSortChanged($event)"
+        >
+          <option value="newest">Newest to oldest</option>
+          <option value="oldest">Oldest to newest</option>
         </select>
       </div>
     </div>

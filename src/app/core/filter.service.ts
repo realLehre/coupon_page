@@ -14,7 +14,7 @@ export class FilterService {
   currentCategory = signal<ICouponCategory | null>(null);
   currentPage = signal<number>(1);
   currentPriceFilter = signal<{ min: number; max: number } | null>(null);
-  currentSort = signal<string | null>(null);
+  currentSort = signal<string>('newest');
   currentRating = signal<number | null>(null);
   numberOfFilters = computed(() => {
     const priceFilter = this.currentPriceFilter();
@@ -33,7 +33,7 @@ export class FilterService {
     page: this.currentPage(),
     minPrice: this.currentPriceFilter()?.min,
     maxPrice: this.currentPriceFilter()?.max,
-    sort: this.currentSort()!,
+    sort: this.currentSort(),
     search: this.currentSearch(),
     location: this.currentLocation(),
     percentage: this.currentPercentage(),
@@ -104,10 +104,11 @@ export class FilterService {
   }
 
   clearFilter() {
-    this.currentSort.set(null);
+    this.currentSort.set('newest');
     this.currentRating.set(null);
     this.currentPriceFilter.set(null);
-    this.currentPriceFilter.set(null);
+    this.currentPercentage.set({ min: 0, max: 0 });
+    this.currentPage.set(1);
     this.setDataAndRoute();
   }
 }

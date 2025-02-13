@@ -13,7 +13,7 @@ import { CouponsService } from '../coupons.service';
 import { CouponsDataPagesComponent } from '../coupons-data-pages/coupons-data-pages.component';
 import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
 import { FilterService } from '../../core/filter.service';
 
@@ -26,6 +26,7 @@ import { FilterService } from '../../core/filter.service';
     CouponsDataPagesComponent,
     NgxPaginationModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './coupons-view.component.html',
   styleUrl: './coupons-view.component.scss',
@@ -40,6 +41,7 @@ export class CouponsViewComponent implements OnInit {
   isMobileFilterOpened = this.layoutService.mobileFilterOpened;
   config = this.couponService.paginationConfig;
   inputForm: FormControl = new FormControl(null);
+  selectedSort = this.filterService.currentSort;
 
   ngOnInit() {
     // mimicking searching and sending a network request, do debounce to reduce call frequency
@@ -51,10 +53,8 @@ export class CouponsViewComponent implements OnInit {
         map(() => this.inputForm.value.toLowerCase()),
       )
       .subscribe((val) => {
-        console.log(val);
         this.filterService.currentSearch.set(val);
-        this.filterService.currentPage.set(1);
-        this.filterService.setDataAndRoute();
+        this.filter();
       });
   }
 
@@ -65,4 +65,14 @@ export class CouponsViewComponent implements OnInit {
   }
 
   onCloseMenu() {}
+
+  onSortChanged(event: any) {
+    this.filterService.currentSort.set(event);
+    this.filter();
+  }
+
+  filter() {
+    this.filterService.currentPage.set(1);
+    this.filterService.setDataAndRoute();
+  }
 }

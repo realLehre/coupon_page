@@ -42,7 +42,7 @@ export class CouponsService {
 
   filterCoupons(filters: ICouponsFilter): ICouponFilteredRes {
     let filteredCoupons = this.couponsResponse().data;
-    console.log(filters);
+
     // Percentage Discount Filter
     if (filters.percentage !== undefined) {
       if (filters.percentage?.min == 0 && filters.percentage?.max == 0) {

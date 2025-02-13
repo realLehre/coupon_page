@@ -11,7 +11,7 @@ import { CategoryService } from '../coupons-filters/category/category.service';
 import { LocationService } from '../coupons-filters/location/location.service';
 import { By } from '@angular/platform-browser';
 
-fdescribe('CouponsViewComponent', () => {
+describe('CouponsViewComponent', () => {
   let component: CouponsViewComponent;
   let fixture: ComponentFixture<CouponsViewComponent>;
   let filterServiceSpy: jasmine.SpyObj<FilterService>;

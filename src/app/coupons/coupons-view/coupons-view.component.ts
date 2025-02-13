@@ -44,7 +44,7 @@ export class CouponsViewComponent implements OnInit {
   selectedSort = this.filterService.currentSort;
 
   ngOnInit() {
-    // mimicking searching and sending a network request, do debounce to reduce call frequency
+    // mimicking searching and sending a network request so, debounce to reduce call frequency
     this.inputForm.valueChanges
       .pipe(
         debounceTime(500),

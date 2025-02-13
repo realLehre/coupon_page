@@ -86,6 +86,7 @@ export class FilterService {
 
     sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.filter()));
 
+    // scroll to top after every filter or page change
     requestAnimationFrame(() => {
       window.scrollTo({
         top: 0,

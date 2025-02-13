@@ -39,6 +39,7 @@ export class CouponsService {
 
   filterCoupons(filters: ICouponsFilter): ICouponFilteredRes {
     let filteredCoupons = this.couponsResponse().data;
+
     // Percentage Discount Filter
     if (filters.percentage) {
       if (
@@ -88,14 +89,14 @@ export class CouponsService {
       );
     }
 
-    // Location Filter (Full match)
+    // Location Filter
     if (filters.location) {
       filteredCoupons = filteredCoupons.filter(
         (coupon) => coupon.company_location === filters.location,
       );
     }
 
-    // Sorting (Newest to Oldest or vice versa)
+    // Sorting
     if (filters.sort === 'newest') {
       filteredCoupons.sort(
         (a, b) =>

@@ -54,12 +54,15 @@ export class CouponsService {
     // Price Filter
     if (filters.minPrice !== undefined) {
       filteredCoupons = filteredCoupons.filter(
-        (coupon) => coupon.amount >= filters.minPrice!,
+        (coupon) => +coupon.amount >= +filters.minPrice!,
       );
     }
-    if (filters.maxPrice !== undefined) {
+    if (
+      filters.maxPrice !== undefined &&
+      filters.minPrice !== filters.maxPrice
+    ) {
       filteredCoupons = filteredCoupons.filter(
-        (coupon) => coupon.amount <= filters.maxPrice!,
+        (coupon) => +coupon.amount <= +filters.maxPrice!,
       );
     }
 

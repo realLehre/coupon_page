@@ -2,10 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   signal,
+  WritableSignal,
 } from '@angular/core';
 import { Slider } from 'primeng/slider';
 import { FormsModule } from '@angular/forms';
+import { FilterService } from '../../../core/filter.service';
 
 @Component({
   selector: 'app-price',
@@ -15,7 +18,9 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriceComponent {
-  currentPriceFilter = signal({ min: 2000, max: 10000 });
+  private filterService = inject(FilterService);
+  currentPriceFilter: WritableSignal<{ min: number; max: number } | null> =
+    this.filterService.currentPriceFilter;
   rangeValues = computed(() => {
     if (this.currentPriceFilter()) {
       return [this.currentPriceFilter()?.min, this.currentPriceFilter()?.max];
@@ -24,22 +29,38 @@ export class PriceComponent {
     }
   });
 
-  onRangeValuesChange($event: any) {}
+  onRangeValuesChange(event: any) {
+    this.currentPriceFilter.set({
+      min: event[0],
+      max: event[1],
+    });
+    this.setFilter();
+  }
 
   onMinInputChange(event: any) {
-    console.log(event);
-    const minValue = +event;
     this.currentPriceFilter.set({
-      min: minValue,
-      max: this.currentPriceFilter().max,
+      min: event,
+      max: this.currentPriceFilter()?.max!,
     });
+    this.setFilter();
   }
 
   onMaxInputChange(event: any) {
-    const maxValue = +event;
     this.currentPriceFilter.set({
-      min: this.currentPriceFilter().min,
-      max: maxValue,
+      min: this.currentPriceFilter()?.min!,
+      max: event,
     });
+    this.setFilter();
+  }
+
+  setFilter() {
+    this.filterService.currentPriceFilter.set({
+      min: this.currentPriceFilter()?.min!,
+      max:
+        this.currentPriceFilter()?.min! > this.currentPriceFilter()?.max!
+          ? this.currentPriceFilter()?.min!
+          : this.currentPriceFilter()?.max!,
+    });
+    this.filterService.setDataAndRoute();
   }
 }

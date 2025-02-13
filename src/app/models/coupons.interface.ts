@@ -66,8 +66,8 @@ export interface ICouponFilteredRes {
 
 export interface ICouponsFilter {
   search?: string;
-  minPrice?: string;
-  maxPrice?: string;
+  minPrice?: number;
+  maxPrice?: number;
   page: number;
   category?: ICouponCategory | undefined;
   percentage?: number;

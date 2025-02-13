@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CategoryService } from './category.service';
-import { KeyValuePipe } from '@angular/common';
 import { RadioButton } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { FilterService } from '../../../core/filter.service';
@@ -18,12 +17,8 @@ export class CategoryComponent {
   categories = this.categoryService.categories;
   selectedCategory = this.filterService.currentCategory;
 
-  ngOnInit() {
-    console.log(this.categories());
-    console.log(this.selectedCategory());
-  }
-
   onSelectCategory(category: any) {
+    this.selectedCategory.set(category);
     this.filterService.currentCategory.set(category);
     this.filterService.currentPage.set(1);
     this.filterService.setDataAndRoute();

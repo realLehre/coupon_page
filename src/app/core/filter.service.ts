@@ -13,7 +13,7 @@ export class FilterService {
   currentLocation = signal<string>('');
   currentCategory = signal<ICouponCategory | null>(null);
   currentPage = signal<number>(1);
-  currentPriceFilter = signal<{ min: string; max: string } | null>(null);
+  currentPriceFilter = signal<{ min: number; max: number } | null>(null);
   currentSort = signal<string | null>(null);
   currentRating = signal<number | null>(null);
   numberOfFilters = computed(() => {

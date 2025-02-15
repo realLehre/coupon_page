@@ -1,0 +1,171 @@
+<header class="bg-white shadow-sm w-full">
+  <nav class="py-4 mx-auto w-[90%] max-w-[1400px]">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="assets/image-1.png" alt="" />
+      </div>
+
+      <!-- Desktop Nav -->
+      <div class="hidden min-[1200px]:flex items-center space-x-8">
+        <a
+          href="javascript:"
+          class="flex items-center text-title font-medium whitespace-nowrap"
+        >
+          The what?
+        </a>
+        <div class="w-[1px] h-6 bg-gray-200 hidden min-[1200px]:block"></div>
+        <a
+          href="javascript:"
+          class="flex items-center text-title font-bold hover:text-main_purple"
+        >
+          <span class="mr-2">👩🏽‍🏫</span>
+          Mentors
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-title font-bold hover:text-main_purple"
+        >
+          <span class="mr-2">🎉</span>
+          Events
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-title font-bold hover:text-main_purple"
+        >
+          <span class="mr-2">🎟️</span>
+          Coupons
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-title font-bold hover:text-main_purple"
+        >
+          <span class="mr-2">📚</span>
+          Courses
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-title font-bold hover:text-main_purple"
+        >
+          <span class="mr-2">👨🏽‍💻‍</span>
+          Jobs
+        </a>
+      </div>
+
+      <div class="hidden min-[1200px]:flex items-center space-x-4">
+        <button class="text-gray-600 hover:text-gray-900">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M16.6667 14.6667H15.6133L15.24 14.3067C16.5467 12.7867 17.3333 10.8133 17.3333 8.66667C17.3333 3.88 13.4533 0 8.66667 0C3.88 0 0 3.88 0 8.66667C0 13.4533 3.88 17.3333 8.66667 17.3333C10.8133 17.3333 12.7867 16.5467 14.3067 15.24L14.6667 15.6133V16.6667L21.3333 23.32L23.32 21.3333L16.6667 14.6667ZM8.66667 14.6667C5.34667 14.6667 2.66667 11.9867 2.66667 8.66667C2.66667 5.34667 5.34667 2.66667 8.66667 2.66667C11.9867 2.66667 14.6667 5.34667 14.6667 8.66667C14.6667 11.9867 11.9867 14.6667 8.66667 14.6667Z"
+              fill="#424242"
+            />
+          </svg>
+        </button>
+        <div class="w-[1px] h-6 bg-gray-200 hidden min-[1200px]:block"></div>
+        <a
+          href="javascript:"
+          class="px-4 py-2 rounded-xl border border-gray-200 text-main_purple hover:text-gray-900 font-semibold"
+          >Login</a
+        >
+        <a
+          href="javascript:"
+          class="bg-main_purple text-white px-4 py-2 rounded-md font-semibold whitespace-nowrap"
+        >
+          Join The Tribe
+        </a>
+      </div>
+
+      <div class="min-[1200px]:hidden flex items-center">
+        <button
+          class="text-gray-600 hover:text-gray-900"
+          (click)="onToggleMenu()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile nav -->
+    <div
+      id="mobile-menu"
+      class="min-[1200px]:hidden mt-4"
+      [ngClass]="{ hidden: toggleMenu() }"
+    >
+      <div class="flex flex-col space-y-4">
+        <a
+          href="javascript:"
+          class="flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <span class="mr-2">❓</span>
+          The what?
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <span class="mr-2">👥</span>
+          Mentors
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <span class="mr-2">🎉</span>
+          Events
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <span class="mr-2">🎫</span>
+          Coupons
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <span class="mr-2">📚</span>
+          Courses
+        </a>
+        <a
+          href="javascript:"
+          class="flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <span class="mr-2">💼</span>
+          Jobs
+        </a>
+        <div class="pt-4 border-t border-gray-200">
+          <a
+            href="javascript:"
+            class="block text-gray-600 hover:text-gray-900 mb-3"
+            >Login</a
+          >
+          <a
+            href="javascript:"
+            class="block bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 text-center"
+          >
+            Join The Tribe
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

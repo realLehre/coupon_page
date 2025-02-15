@@ -89,7 +89,7 @@ export class FilterService {
     // scroll to top after every filter or page change
     requestAnimationFrame(() => {
       window.scrollTo({
-        top: 0,
+        top: 400,
         behavior: 'smooth',
       });
     });

@@ -1,11 +1,17 @@
-<div
-  class="mx-auto w-[90%] flex items-start py-10 relative"
-  style="margin-inline: auto"
->
-  <div class="max-[800px]:hidden mr-10 max-[800px]:mr-0 z-10">
-    <app-coupons-filters />
+<main class="w-full">
+  <app-header />
+  <app-banner />
+  <div
+    class="w-[90%] flex items-start py-10 relative max-w-[1400px] mx-auto"
+    style="margin-inline: auto"
+  >
+    <div class="max-[800px]:hidden mr-10 max-[800px]:mr-0 z-10">
+      <app-coupons-filters />
+    </div>
+    <div class="flex-1 z-8 relative">
+      <app-coupons-view />
+    </div>
   </div>
-  <div class="flex-1 z-8 relative">
-    <app-coupons-view />
-  </div>
-</div>
+
+  <app-call-to-action />
+</main>
